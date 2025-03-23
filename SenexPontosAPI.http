@@ -1,0 +1,6 @@
+@SenexPontosAPI_HostAddress = http://localhost:5279
+
+GET {{SenexPontosAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
