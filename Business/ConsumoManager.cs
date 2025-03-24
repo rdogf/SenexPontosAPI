@@ -18,10 +18,10 @@ namespace SenexPontosAPI.Business
 
         public async Task<object> RegistrarConsumoCompletoAsync(TempoRealRequest request)
         {
-            // 1️⃣ Valida empresa
+            // 1️ Valida empresa
             var empresa = await empresaManager.GetEmpresaPorCnpj(request.cnpj);
 
-            // 2️⃣ Registra (ou busca) pessoa
+            // 2️ Registra (ou busca) pessoa
             var pessoas = await _dapper.QueryAsync<IdPessoaResponse>("SetRegistrarPessoaPorCpf", new
             {
                 cpf = request.cpf,
@@ -36,7 +36,7 @@ namespace SenexPontosAPI.Business
 
             var pessoa = await pessoaManager.GetPessoaPorCpf(request.cpf);
 
-            // 3️⃣ Registra consumo
+            // 3️ Registra consumo
             var consumos = await _dapper.QueryAsync<CreditarPontosRequest>("SetRegistrarConsumoDireto", new
             {
                 id_pessoa_que_consumiu = id_pessoa,
@@ -49,7 +49,7 @@ namespace SenexPontosAPI.Business
 
             var consumo = consumos.First();
 
-            // 4️⃣ Retorno formatado
+            // 4️ Retorno formatado
             return new
             {
                 mensagem = "Consumo registrado com sucesso.",
@@ -71,10 +71,10 @@ namespace SenexPontosAPI.Business
 
         public async Task<object> RegistrarConsumoTempoReal(TempoRealRequest request)
         {
-            // 1️⃣ Valida empresa
+            // 1️ Valida empresa
             var empresa = await empresaManager.GetEmpresaPorCnpj(request.cnpj);
 
-            // 2️⃣ Registra (ou busca) pessoa
+            // 2️ Registra (ou busca) pessoa
             var pessoas = await _dapper.QueryAsync<IdPessoaResponse>("SetRegistrarPessoaPorCpf", new
             {
                 cpf = request.cpf,
@@ -87,7 +87,7 @@ namespace SenexPontosAPI.Business
 
             int id_pessoa = pessoas.First().id_pessoa;
 
-            // 3️⃣ Registra o consumo
+            // 3️ Registra o consumo
             var consumos = await _dapper.QueryAsync<CreditarPontosRequest>("SetRegistrarConsumoDireto", new
             {
                 id_pessoa_que_consumiu = id_pessoa,
@@ -100,7 +100,7 @@ namespace SenexPontosAPI.Business
 
             var consumo = consumos.First();
 
-            // 4️⃣ Credita pontos
+            // 4️ Credita pontos
             await _dapper.ExecuteAsync("SetCreditarPontosTempoReal", new CreditarPontosRequest
             {
                 id_consumo = consumo.id_consumo,
@@ -108,7 +108,7 @@ namespace SenexPontosAPI.Business
                 valor_total = request.valor_total
             });
 
-            // 5️⃣ Retorno estruturado
+            // 5️ Retorno estruturado
             var pessoa = await pessoaManager.GetPessoaPorCpf(request.cpf);
 
             return new
