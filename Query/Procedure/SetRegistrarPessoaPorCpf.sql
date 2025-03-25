@@ -21,7 +21,8 @@ Begin
 	-- Se não existir, insere
 	If @id_pessoa Is Null
 	Begin
-		Insert Into dbo.PESSOA (
+		Insert Into dbo.PESSOA 
+		(
 			 id_empresa
 			,cpf
 			,nome

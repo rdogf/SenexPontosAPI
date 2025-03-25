@@ -73,6 +73,12 @@ Go
 	SELECT * FROM dbo.MEMORIAL;
 
 	SELECT * FROM dbo.CONSUMO WHERE id_consumo = 5;
+
+	
+	SELECT * FROM dbo.EMPRESA;
+
+	
+	SELECT * FROM dbo.PESSOA;
 	/*
 	Delete FROM dbo.CONSUMO WHERE id_consumo = 7;
 	Delete FROM dbo.CONSUMO WHERE id_consumo = 7;
